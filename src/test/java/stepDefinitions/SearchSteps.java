@@ -5,15 +5,18 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import pages.HomePage;
-import pages.SearchResultsPage;
+import pages.SearchResultsPageEbay;
 import utils.DriverManager;
 
 public class SearchSteps {
     WebDriver driver = DriverManager.getDriver();
     HomePage homePage = new HomePage(driver);
-    SearchResultsPage searchResultsPage = new SearchResultsPage(driver);
+    SearchResultsPageEbay searchResultsPage = new SearchResultsPageEbay(driver);
+    JavascriptExecutor js = (JavascriptExecutor) driver;
+
 
     private String minPrice;
     private String maxPrice;
@@ -64,6 +67,26 @@ public class SearchSteps {
     @Then("I should see results sorted from lowest to highest price")
     public void seeSortedResultsLowToHigh() {
         Assert.assertTrue("The results are sorted correctly!", searchResultsPage.arePricesSortedLowToHigh());
+    }
+
+    @And("I apply a filter for RAM size {string} GB")
+    public void applyFilterForRamSize(String ramSize) throws InterruptedException {
+        searchResultsPage.filterForRamMethod(ramSize);
+    }
+
+    @Then("I should see results with that RAM size")
+    public void seeResultRamSize() {
+        Assert.assertTrue(searchResultsPage.hasRamSize());
+    }
+
+    @And("I navigate to the second page of results")
+    public void navSecondPart(){
+        searchResultsPage.secondPageMethod();
+    }
+
+    @Then("I should see search results for {string} on page 2")
+    public void resultOnPageSecond(String resPageSec) {
+        searchResultsPage.resultForSecondPage();
     }
 }
 

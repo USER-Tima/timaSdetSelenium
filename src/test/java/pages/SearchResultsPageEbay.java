@@ -1,21 +1,20 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static utils.WebUtils.clickElement;
 import static utils.WebUtils.sendKeysToElement;
 
-public class SearchResultsPage {
+public class SearchResultsPageEbay {
     WebDriver driver;
+    JavascriptExecutor js = (JavascriptExecutor) driver;
+    HomePage homePage = new HomePage(driver);
+
 
     @FindBy(xpath = "//input[@aria-label='Minimum Value in $']")
     private WebElement minPriceInput;
@@ -32,7 +31,17 @@ public class SearchResultsPage {
     @FindBy(xpath = "//button[@aria-label='Sort selector. Best Match selected.']")
     private WebElement sortDropDown;
 
-    public SearchResultsPage(WebDriver driver) {
+    @FindBy(xpath = "//div[@class='s-item__title']/span")
+    private List<WebElement> productTitleList;
+
+    @FindBy(xpath = "//a[@href='https://www.ebay.com/sch/i.html?_from=R40&_nkw=Bluetooth+speaker&_sacat=0&_pgn=1']")
+    private WebElement secondPage;
+
+    @FindBy(xpath = "//span[text()='Bluetooth speaker']")
+    private WebElement headerTextBluetooth;
+
+
+    public SearchResultsPageEbay(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
@@ -104,18 +113,38 @@ public class SearchResultsPage {
 
         return true;
     }
+
+
+    public void filterForRamMethod(String ramSize) throws InterruptedException {
+        WebElement ramElement = driver.findElement(By.xpath("//input[@aria-label='"+ramSize+" GB']/parent::node()"));
+        clickElement(ramElement,Duration.ofSeconds(2));
+        Thread.sleep(2000);
+    }
+
+    public boolean hasRamSize() {
+        String ramS = " 16GB";
+        int count = 0;
+        for (WebElement element: productTitleList) {
+            String productTitle = element.getText().trim().toUpperCase();
+            count++;
+            System.out.println(count + ") Here is the title " + productTitle);
+            if (productTitle.isEmpty()) {
+                System.out.println("This is not a valid product ");
+                continue;
+            }
+        }
+        return true;
+    }
+
+    public void secondPageMethod() {
+        clickElement(secondPage,Duration.ofSeconds(2));
+    }
+
+    public String resultForSecondPage() {
+        return headerTextBluetooth.getText();
+
+
+
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -38,7 +38,7 @@ public class Hooks {
             test.log(Status.PASS, "Scenario passed: " + scenario.getName());
         }
 
-        DriverManager.quitDriver();
+//        DriverManager.quitDriver();
 
         extent.flush();
     }
