@@ -1,15 +1,14 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class HomePage {
+public class HomePageEbay {
     WebDriver driver;
 
-    public HomePage(WebDriver driver) {
+    public HomePageEbay(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
@@ -23,6 +22,7 @@ public class HomePage {
     @FindBy(xpath = "//h1[@class='srp-controls__count-heading']")
     private WebElement searchResults;
 
+
     public void enterSearchTerm(String product) {
         searchBox.clear();
         searchBox.sendKeys(product);
@@ -35,5 +35,4 @@ public class HomePage {
     public String getSearchResultsText() {
         return  searchResults.getText();
     }
-
 }

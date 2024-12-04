@@ -17,20 +17,19 @@ Feature: Search Products on eBay
     And I sort the results by "Price + Shipping: lowest first"
     Then I should see results sorted from lowest to highest price
 
+
   Scenario: Filter for laptops by RAM size
     Given I am on the eBay homepage
     When I search for "laptop"
     And I apply a filter for RAM size "16" GB
     Then I should see results with that RAM size
 
+
   Scenario: Verify pagination on search results
     Given I am on the eBay homepage
     When I search for "Bluetooth speaker"
     And I navigate to the second page of results
     Then I should see search results for "Bluetooth speaker" on page 2
-
-#    kandaisyn deim e
-
 
 
 

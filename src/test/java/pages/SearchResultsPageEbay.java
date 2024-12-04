@@ -13,7 +13,7 @@ import static utils.WebUtils.sendKeysToElement;
 public class SearchResultsPageEbay {
     WebDriver driver;
     JavascriptExecutor js = (JavascriptExecutor) driver;
-    HomePage homePage = new HomePage(driver);
+    HomePageEbay homePage = new HomePageEbay(driver);
 
 
     @FindBy(xpath = "//input[@aria-label='Minimum Value in $']")
@@ -34,7 +34,7 @@ public class SearchResultsPageEbay {
     @FindBy(xpath = "//div[@class='s-item__title']/span")
     private List<WebElement> productTitleList;
 
-    @FindBy(xpath = "//a[@href='https://www.ebay.com/sch/i.html?_from=R40&_nkw=Bluetooth+speaker&_sacat=0&_pgn=1']")
+    @FindBy(xpath = "//a[@href='https://www.ebay.com/sch/i.html?_from=R40&_nkw=Bluetooth+speaker&_sacat=0&_pgn=2']")
     private WebElement secondPage;
 
     @FindBy(xpath = "//span[text()='Bluetooth speaker']")
@@ -92,14 +92,14 @@ public class SearchResultsPageEbay {
         List<Double> prices = new ArrayList<>(); //List of actual prices from page
 
         for (WebElement priceElement : priceElements) {
-
+                                    // ^ 1-2-3-4-5-6-7-8-9 .  &&@#$%&**
             String priceText = priceElement.getText().replaceAll("[^0-9.]", "");
             if (!priceText.isEmpty()) {
                 prices.add(Double.parseDouble(priceText));
+                // LIST <44.99, 157.99>
             }
         }
         // 0.5, 0.9, 1.5, 0.99
-
         List<Double> sortedPrices = new ArrayList<>(prices);
         Collections.sort(sortedPrices);
         // 0.5, 0.9, 0.99, 1.5
@@ -142,9 +142,6 @@ public class SearchResultsPageEbay {
 
     public String resultForSecondPage() {
         return headerTextBluetooth.getText();
-
-
-
     }
 }
 
