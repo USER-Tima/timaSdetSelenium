@@ -7,13 +7,13 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import pages.HomePage;
+import pages.HomePageEbay;
 import pages.SearchResultsPageEbay;
 import utils.DriverManager;
 
 public class SearchSteps {
     WebDriver driver = DriverManager.getDriver();
-    HomePage homePage = new HomePage(driver);
+    HomePageEbay homePage = new HomePageEbay(driver);
     SearchResultsPageEbay searchResultsPage = new SearchResultsPageEbay(driver);
     JavascriptExecutor js = (JavascriptExecutor) driver;
 
@@ -25,10 +25,11 @@ public class SearchSteps {
     public void ebayHomePage() throws InterruptedException {
         driver.get("https://www.ebay.com/");
     }
-
+        // I search for "Bluetooth speaker"
+        //              {string} = Bluetooth speaker
     @When("I search for {string}")
-    public void iSearchFor(String product) {
-        homePage.enterSearchTerm(product);
+    public void iSearchFor(String product) {                         //Bluetooth speaker
+        homePage.enterSearchTerm(product);   //homePage.enterSearchTerm(product);
         homePage.clickSearchButton();
     }
 

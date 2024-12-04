@@ -2,11 +2,13 @@ package stepDefinitions;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import pages.HomePage;
+import pages.HomePageEbay;
 import pages.HomePageAmazon;
+import pages.ResultPage;
 import pages.SearchResultsPageEbay;
 import utils.DriverManager;
 import utils.WebUtils;
@@ -15,11 +17,15 @@ import java.util.Set;
 
 public class SearchStepsAmazon {
     WebDriver driver = DriverManager.getDriver();
-    HomePage homePage = new HomePage(driver);
+    HomePageEbay homePage = new HomePageEbay(driver);
     SearchResultsPageEbay searchResultsPage = new SearchResultsPageEbay(driver);
     JavascriptExecutor js = (JavascriptExecutor) driver;
     HomePageAmazon homePageAmazon = new HomePageAmazon(driver);
     WebUtils webUtils = new WebUtils();
+    ResultPage resultPage = new ResultPage(driver);
+    HomePageEbay homePageEbay = new HomePageEbay(driver);
+
+
 
     @Given("I am on the Amazon homepage")
     public void setup() {
@@ -30,6 +36,7 @@ public class SearchStepsAmazon {
     public void searchOnAmazon(String iphoneProMax) {
         homePageAmazon.enterSearchTermAmazon(iphoneProMax);
         homePageAmazon.clickSearchButtonAmazon();
+        resultPage.firstElementPriceAmazon();
     }
 
     @And("I open eBay in a new tab")
@@ -52,5 +59,16 @@ public class SearchStepsAmazon {
     public void searchByEbayIphone(String product) throws InterruptedException {
         homePage.enterSearchTerm(product);
         homePage.clickSearchButton();
+        resultPage.firstElementPriceEbay();
+    }
+
+    @Then("I compare the prices of the first product on Amazon and eBay")
+    public void compareThePricesOfTheFirstProductOnAmazonAndEBay() {
+
+    }
+
+    @And("I log which site offers the better price")
+    public void iLogWhichSiteOffersTheBetterPrice() {
+        resultPage.result();
     }
 }
