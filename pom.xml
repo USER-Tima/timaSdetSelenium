@@ -56,6 +56,13 @@
             <artifactId>webdrivermanager</artifactId>
             <version>5.9.2</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/net.serenity-bdd/serenity-core -->
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-core</artifactId>
+            <version>4.2.9</version>
+        </dependency>
+
     </dependencies>
 
 </project>
