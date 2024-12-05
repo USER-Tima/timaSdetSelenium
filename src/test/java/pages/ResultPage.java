@@ -16,39 +16,11 @@ public class ResultPage {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(xpath = "(//span[@class='s-item__price'])[3]")
-    private WebElement firstElementFromEbay;
-
     @FindBy(xpath = "(//span[@class='a-price-whole'])[1]")
     private WebElement firstElementFromAmazon;
 
-
-
-
-//    public void resultPrice() {
-//        System.out.println(String.valueOf(Serenity.sessionVariableCalled("AmazonPriceGlobal")));
-////        System.out.println("" + homePageEbay.firstElementPriceMethod());
-//
-////        if (homePageAmazon.firstElementPriceAmazon() > homePageEbay.firstElementPriceMethod()) {
-////            String result = "I suggest you Amazon! $" + homePageAmazon.firstElementPriceAmazon() + " the best offer!";
-////            return result;
-////        }
-////        String secondResult = "I suggest you Amazon! $" + homePageAmazon.firstElementPriceAmazon() + " the best offer!";
-////        return secondResult;
-//    }
-
-    double priceEbay = 0;
-    public double firstElementPriceEbay() {
-        String priceText = firstElementFromEbay.getText().replaceAll("[^0-9.]", "");
-
-        try {
-            priceEbay = Double.parseDouble(priceText);
-        } catch (NumberFormatException e) {
-            System.out.println("Skipping an item with an invalid price: " + priceText);
-        }
-        System.out.println("This is a price from eBay: $" + priceEbay);
-        return priceEbay;
-    }
+    @FindBy(xpath = "(//span[@class='s-item__price'])[3]")
+    private WebElement firstElementFromEbay;
 
     double priceAmazon;
     public double firstElementPriceAmazon(){
@@ -61,6 +33,19 @@ public class ResultPage {
         }
         System.out.println("This is a price from Amazon: $" + priceAmazon);
         return priceAmazon;
+    }
+
+    double priceEbay = 0;
+    public double firstElementPriceEbay() {
+        String priceText = firstElementFromEbay.getText().replaceAll("[^0-9.]", "");
+
+        try {
+            priceEbay = Double.parseDouble(priceText);
+        } catch (NumberFormatException e) {
+            System.out.println("Skipping an item with an invalid price: " + priceText);
+        }
+        System.out.println("This is a price from eBay: $" + priceEbay);
+        return priceEbay;
     }
 
     public void result() {

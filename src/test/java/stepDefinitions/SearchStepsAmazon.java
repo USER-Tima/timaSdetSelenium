@@ -26,7 +26,6 @@ public class SearchStepsAmazon {
     HomePageEbay homePageEbay = new HomePageEbay(driver);
 
 
-
     @Given("I am on the Amazon homepage")
     public void setup() {
         driver.get("https://www.amazon.com/");
