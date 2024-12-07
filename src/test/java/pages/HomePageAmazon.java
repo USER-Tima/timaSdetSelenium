@@ -21,12 +21,11 @@ public class HomePageAmazon {
     @FindBy(xpath = "//input[@id='nav-search-submit-button']")
     private WebElement searchButtonAmazon;
 
-    public void enterSearchTermAmazon(String a) {
+    public void enterSearchTermAmazon(String text) {
         searchAmazon.clear();
-        searchAmazon.sendKeys(a);
+        searchAmazon.sendKeys(text);
     }
     public void clickSearchButtonAmazon() {
         searchButtonAmazon.click();
     }
-
 }
