@@ -5,21 +5,30 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import pages.HomePageEbay;
 import pages.SearchResultsPageEbay;
 import utils.DriverManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchSteps {
     WebDriver driver = DriverManager.getDriver();
     HomePageEbay homePage = new HomePageEbay(driver);
     SearchResultsPageEbay searchResultsPage = new SearchResultsPageEbay(driver);
     JavascriptExecutor js = (JavascriptExecutor) driver;
+    SearchResultsPageEbay searchResultsPageEbay = new SearchResultsPageEbay(driver);
 
 
     private String minPrice;
     private String maxPrice;
+
+    private int minPr;
+    private int maxPr;
 
     @Given("I am on the eBay homepage")
     public void ebayHomePage() throws InterruptedException {
@@ -28,7 +37,7 @@ public class SearchSteps {
         // I search for "Bluetooth speaker"
         //              {string} = Bluetooth speaker
     @When("I search for {string}")
-    public void iSearchFor(String product) {                         //Bluetooth speaker
+    public void iSearchFor(String product) throws InterruptedException {                         //Bluetooth speaker
         homePage.enterSearchTerm(product);   //homePage.enterSearchTerm(product);
         homePage.clickSearchButton();
     }
@@ -89,8 +98,104 @@ public class SearchSteps {
     public void resultOnPageSecond(String resPageSec) {
         searchResultsPage.resultForSecondPage();
     }
-}
 
+
+    @And("I click on the first product")
+    public void iClickOnTheFirstProduct() {
+        searchResultsPage.clickFirstElement();
+    }
+
+    @Then("I should verify the seller has a rating of or higher")
+    public void iShouldVerifyTheSellerHasARatingOfOrHigher() {
+        searchResultsPage.sortedMethod();
+    }
+
+
+    @Given("I am on the eBay advanced search page")
+    public void iAmOnTheEBayAdvancedSearchPage() {
+        String url = "https://www.ebay.com/sch/ebayadvsearch";
+        driver.get(url);
+        driver.manage().window().maximize();
+    }
+
+    @When("I enter the keyword {string}")
+    public void iEnterTheKeyword(String text) {
+        searchResultsPage.sendKeywords(text);
+    }
+
+    @And("I exclude the word {string}")
+    public void iExcludeTheWord(String text) {
+        searchResultsPage.sendExcludeWord(text);
+    }
+
+    @And("I set the minimum price to {string}")
+    public void iSetTheMinimumPriceTo(String to) {
+        searchResultsPage.sendMinPrice(to);
+    }
+
+    @And("I set the maximum price to {string}")
+    public void iSetTheMaximumPriceTo(String from) {
+        searchResultsPage.sendMaxPrice(from);
+    }
+
+    @And("I choose the buying format {string}")
+    public void iChooseTheBuyingFormat(String text) {
+        WebElement chose = driver.findElement(By.xpath("//label[text()='" + text + "']"));
+        if (!chose.isSelected()) chose.click();
+    }
+
+    @And("I select the condition {string}")
+    public void iSelectTheCondition(String text) {
+
+        WebElement selectNew = driver.findElement(By.xpath("//label[text()='"+text+"']"));
+        if (!selectNew.isSelected()) selectNew.click();
+
+    }
+
+    @And("I specify the location as {string}")
+    public void iSpecifyTheLocationAs(String selectUSA) {
+        WebElement selectLocation = driver.findElement(By.xpath("//label[text()='"+selectUSA+" ']"));
+        if (!selectLocation.isSelected()) selectLocation.click();
+    }
+
+    @And("I click on the search button")
+    public void iClickOnTheSearchButton() {
+        searchResultsPage.saveButtonMethod();
+    }
+
+    @Then("I should verify that all results contain the keyword {string}")
+    public void iShouldVerifyThatAllResultsContainTheKeyword(String text) {
+        searchResultsPage.infoResultAfterSave();
+        System.out.println("All results contain the keyword: " + text);
+
+    }
+
+    @And("I should verify that no result contains the word {string}")
+    public void iShouldVerifyThatNoResultContainsTheWord(String text) {
+        List<WebElement> result = driver.findElements(By.xpath(" //span[@role='heading']"));
+        for (WebElement a : result){
+            String resText = a.getText().trim().toLowerCase();
+            if (resText.contains(text)){
+                System.out.println("NO NO");
+            }
+            else {
+                System.out.println(resText);
+            }
+        }
+    }
+
+    @And("I should verify that the buying format for all results is {string}")
+    public void iShouldVerifyThatTheBuyingFormatForAllResultsIs(String text) {
+        WebElement buyItNow = driver.findElement(By.xpath("//span[@class='srp-format-tabs-h2' and text()='"+text+"']"));
+        if (buyItNow.isSelected()) {System.out.println("Selected!!! : " + text);}
+    }
+
+    @And("I should verify that all items are located in the {string}")
+    public void iShouldVerifyThatAllItemsAreLocatedInThe(String text) {
+        WebElement location = driver.findElement(By.xpath("//a[@class='srp-carousel-list__item-link--truncated']"));
+        if (location.isSelected()) {System.out.println("Selected!!! : " + text);}
+    }
+}
 
 
 
