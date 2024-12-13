@@ -11,7 +11,6 @@ Feature: Concatenate strings and add numbers
   Scenario Outline: Add two numbers
     Given I have numbers <num1> and <num2>
     Then I calculate their sum and verify it is <sum>
-
     Examples:
       | num1 | num2 | sum |
       | 2    | 3    | 5   |

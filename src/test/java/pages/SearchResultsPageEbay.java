@@ -40,6 +40,36 @@ public class SearchResultsPageEbay {
     @FindBy(xpath = "//span[text()='Bluetooth speaker']")
     private WebElement headerTextBluetooth;
 
+    @FindBy(xpath = "//a[@href='https://www.ebay.com/giftcards' and @class='gh-p']")
+    private WebElement giftCard;
+
+    @FindBy(xpath = "(//a[contains(@href, '/itm')])[6]")
+    private WebElement firstElement;
+
+    @FindBy(xpath = "//h4[@class=\"x-store-information__highlights\"]/span[1]")
+    private WebElement rattingElement;
+
+    @FindBy(xpath = "//input[@id='_nkw']")
+    private WebElement enterKeywords;
+
+    @FindBy(xpath = "//input[@id='_ex_kw']")
+    private WebElement excludeWord;
+
+    @FindBy(xpath = "//input[@aria-label='Enter minimum price range value, $']")
+    private WebElement minPrice;
+
+    @FindBy(xpath = "//input[@aria-label='Enter maximum price range value, $']")
+    private WebElement maxPrice;
+
+    @FindBy(xpath = "//div[@class='field adv-keywords__btn-help']/button")
+    private WebElement buttonSearch;
+
+    @FindBy(xpath = "//h1[@class='srp-controls__count-heading']")
+    private WebElement resultInfo;
+
+
+
+
 
     public SearchResultsPageEbay(WebDriver driver) {
         this.driver = driver;
@@ -143,5 +173,40 @@ public class SearchResultsPageEbay {
     public String resultForSecondPage() {
         return headerTextBluetooth.getText();
     }
+    public void giftCardNav() {
+        clickElement(giftCard,Duration.ofSeconds(2));
+    }
+    public void clickFirstElement() {
+        clickElement(firstElement,Duration.ofSeconds(3));
+    }
+
+    public void sortedMethod(){
+        String a = rattingElement.getText();
+        System.out.println(a);
+    }
+    public void sendKeywords(String text) {
+        sendKeysToElement(text,enterKeywords,Duration.ofSeconds(3));
+    }
+
+    public void sendExcludeWord(String text) {
+        sendKeysToElement(text,excludeWord,Duration.ofSeconds(3));
+    }
+
+    public void sendMinPrice(String text) {
+        sendKeysToElement(text,minPrice,Duration.ofSeconds(3));
+    }
+
+    public void sendMaxPrice(String text) {
+        sendKeysToElement(text,maxPrice,Duration.ofSeconds(3));
+    }
+    public void saveButtonMethod(){
+        clickElement(buttonSearch,Duration.ofSeconds(3));
+    }
+
+    public String infoResultAfterSave() {
+        System.out.println(resultInfo);
+        return resultInfo.getText();
+    }
+
 }
 
