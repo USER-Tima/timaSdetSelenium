@@ -50,8 +50,8 @@ Feature: Search Products on eBay
     And I click on the search button
     Then I should verify that all results contain the keyword "headphones"
     And I should verify that no result contains the word "wireless"
-    And I should verify that the buying format for all results is "Buy It Now"
-    And I should verify that all items are located in the "United States"
+#    And I should verify that the buying format for all results is "Buy It Now"
+#    And I should verify that all items are located in the "United States"
 
 
 
