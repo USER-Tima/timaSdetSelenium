@@ -172,7 +172,7 @@ public class SearchSteps {
 
     @And("I should verify that no result contains the word {string}")
     public void iShouldVerifyThatNoResultContainsTheWord(String text) {
-        List<WebElement> result = driver.findElements(By.xpath(" //span[@role='heading']"));
+        List<WebElement> result = driver.findElements(By.xpath("//span[@role='heading']"));
         for (WebElement a : result){
             String resText = a.getText().trim().toLowerCase();
             if (resText.contains(text)){
